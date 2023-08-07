@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiWithTokenBased", "WebApiWithTokenBased\WebApiWithTokenBased.csproj", "{417D1DB5-EAA7-4137-B52C-BC5EBCA37440}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{417D1DB5-EAA7-4137-B52C-BC5EBCA37440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417D1DB5-EAA7-4137-B52C-BC5EBCA37440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417D1DB5-EAA7-4137-B52C-BC5EBCA37440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417D1DB5-EAA7-4137-B52C-BC5EBCA37440}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A0090DC-C536-4F5B-A2E4-EDC1B3D105E1}
+	EndGlobalSection
+EndGlobal
