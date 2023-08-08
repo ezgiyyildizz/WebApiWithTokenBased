@@ -5,6 +5,7 @@ using WebApiWithTokenBased.Models;
 
 namespace WebApiWithTokenBased.EFCore
 {
+    // Veritabanı bağlamı sınıfı, kimlik doğrulama entegrasyonu ile
     public class RepositoryContext : IdentityDbContext<UserCredentials>
     {
         public RepositoryContext(DbContextOptions options) : base(options)
@@ -15,11 +16,10 @@ namespace WebApiWithTokenBased.EFCore
         {
             base.OnModelCreating(modelBuilder);
 
+            // Tüm yapılandırma sınıflarını bulan ve uygulayan çağrı
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            // Model sınıflarınıza ve ilişkilerinize göre model oluşturmayı devraldığınızda, gerekli özelleştirmeleri burada yapabilirsiniz.
-            // Örneğin, ilişkileri, indeksleri, sütun tiplerini veya varsayılan değerleri yapılandırabilirsiniz.
-            // Bu örnek proje için herhangi bir özelleştirme gerekmiyor, bu yüzden boş bırakıyoruz.
         }
     }
 }
+

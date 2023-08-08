@@ -14,7 +14,7 @@ namespace WebApiWithTokenBased.RepositoryContextFactory
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            // DbContext için gerekli seçenekleri ayarlayarak bir DbContextOptionsBuilder oluştur
+            // DbContext için gerekli seçenekleri ayarlayarak bir DbContextOptionsBuilder 
             var builder = new DbContextOptionsBuilder<RepositoryContext>()
                 .UseSqlServer(configuration.GetConnectionString("sqlConnection"),
                 prj => prj.MigrationsAssembly("WebApiWithTokenBased"));

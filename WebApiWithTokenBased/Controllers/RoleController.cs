@@ -4,6 +4,7 @@ using WebApiWithTokenBased.Dto;
 
 namespace WebApiWithTokenBased.Controllers
 {
+    // Rol işlemlerini yöneten denetleyici
     [Route("api/[controller]")]
     [ApiController]
     public class RoleController : ControllerBase
@@ -11,23 +12,28 @@ namespace WebApiWithTokenBased.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly IAuthRepository _authRepository;
 
+        // Denetleyici için bağımlılık enjeksiyonu
         public RoleController(IRoleRepository roleRepository, IAuthRepository authRepository)
         {
             _roleRepository = roleRepository;
             _authRepository = authRepository;
         }
 
+        // Kullanıcı rolünü kontrol eden ve sadece yetkilendirilmiş kullanıcılara izin veren özelleştirilmiş filtre
         [TypeFilter(typeof(TokenAuthenticationFilter), Arguments = new object[] { "CanReadRoles" })]
         [HttpGet("GetAllRoles")]
         public IActionResult GetAllRoles()
         {
+            // Tüm rolleri al ve döndür
             var roles = _roleRepository.GetAllRoles();
             return Ok(roles);
         }
+    
 
 
-        // Bir rolü ID'ye göre getirme metodu
-        [TypeFilter(typeof(TokenAuthenticationFilter), Arguments = new object[] { "CanGetRoleById" })]
+
+// Bir rolü ID'ye göre getirme metodu
+[TypeFilter(typeof(TokenAuthenticationFilter), Arguments = new object[] { "CanGetRoleById" })]
         [HttpGet("GetRoleById/{name}")]
         public IActionResult GetRoleById(string name)
         {
@@ -165,6 +171,8 @@ namespace WebApiWithTokenBased.Controllers
             }
         }
 
+
+
         // Role claim atama metodu
         //[TypeFilter(typeof(TokenAuthenticationFilter), Arguments = new object[] { "CanAddRoleClaimToUser" })]
         [HttpPost("AddRoleClaimToUser")]
@@ -174,9 +182,13 @@ namespace WebApiWithTokenBased.Controllers
             return Ok("Role claim added successfully.");
         }
 
+
+
+        // İlgili role için bir izni kaldırmak için kullanılan HTTP DELETE isteğini işleyen metod
         [HttpDelete("{roleName}/permissions")]
         public async Task<IActionResult> RemovePermission(string roleName, [FromBody] ClaimDto claimDto)
         {
+            // Geçerli model durumunu kontrol et
             if (!ModelState.IsValid)
             {
                 return BadRequest("Geçersiz veri gönderildi.");
@@ -184,21 +196,26 @@ namespace WebApiWithTokenBased.Controllers
 
             try
             {
+                // İzin kaldırma işlemini gerçekleştir
                 var isPermissionRemoved = await _roleRepository.RemovePermissionFromRole(roleName, claimDto.ClaimType, claimDto.ClaimValue);
 
+                // İzin başarıyla kaldırıldıysa
                 if (isPermissionRemoved)
                 {
                     return Ok("İzin başarıyla kaldırıldı.");
                 }
+                // İzin role atanmamışsa
                 else
                 {
                     return NotFound("Belirtilen izin, role atanmamış.");
                 }
             }
+            // Argüman hatası durumunda
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
             }
+            // Diğer hata durumlarında
             catch (Exception)
             {
                 return StatusCode(500, "Bir hata oluştu. İzin kaldırılamadı.");

@@ -6,9 +6,9 @@ using WebApiWithTokenBased.Models;
 
 namespace WebApiWithTokenBased.ActionFilters
 {
-    // Token tabanlı kimlik doğrulama işlemini gerçekleştiren bir action filter
-    // Web API istekleri geldiğinde bu filtre istekteki Authorization header'ından gelen token'ı doğrular
-    // Eğer token geçerli değilse, isteği yetkilendirme hatasıyla sonlandırır (401 Unauthorized)
+    // Token tabanlı kimlik doğrulama işlemini gerçekleştiren bir action filter.
+    // Web API istekleri geldiğinde bu filtre istekteki Authorization header'ından gelen token'ı doğrular,
+    // Eğer token geçerli değilse, isteği yetkilendirme hatasıyla sonlandırır (401 Unauthorized).
     public class TokenAuthenticationFilter : Attribute, IAsyncAuthorizationFilter
     {
         private readonly ILogger<TokenAuthenticationFilter> _logger;
@@ -19,8 +19,8 @@ namespace WebApiWithTokenBased.ActionFilters
 
 
 
-        // TokenAuthenticationFilter sınıfının yapıcı metodu.
-        // ILogger<TokenAuthenticationFilter> parametresi, filter'ın kullanacağı logger örneğini alır.
+        // Yapıcı metot
+        // ILogger<TokenAuthenticationFilter> parametresi, filter'ın kullanacağı logger örneğini alır,
         // TokenManager parametresi, token'ın geçerliliğini doğrulamak için kullanılacak TokenManager sınıfıdır.
         public TokenAuthenticationFilter(ILogger<TokenAuthenticationFilter> logger, TokenManager tokenManager, RoleManager<UserRole> roleManager, UserManager<UserCredentials> userManager, string policy = null)
         {
@@ -31,8 +31,8 @@ namespace WebApiWithTokenBased.ActionFilters
             this.policy = policy;
         }
 
-        // OnActionExecuting metodu, action metodu çalıştırılmadan önce otomatik olarak çağrılır.
-        // Bu metot, token'ın geçerliliğini doğrular ve isteği yetkilendirme hatasıyla sonlandırır (eğer geçerli değilse)
+        // OnActionExecuting metodu, action metodu çalıştırılmadan önce otomatik olarak çağrılır,
+        // Bu metot, token'ın geçerliliğini doğrular ve istek eğer geçerli değilse yetkilendirme hatasıyla sonlandırır.
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             // İstekten gelen token'ı al
@@ -80,11 +80,14 @@ namespace WebApiWithTokenBased.ActionFilters
                 {
                     if (claim.Type.Equals(policy))
                     {
+                        // Eğer bu kullanıcı ve rolde belirli bir yetkilendirme (claim) varsa,
+                        // kullanıcının kimliği (principal) HttpContext.User olarak ayarlanır.
                         context.HttpContext.User = principal;
-                        return;
+                        return; // Yetkilendirme bulunduğunda işlem sonlanır
                     }
                 }
             }
+
 
 
             // Kullanıcının gerekli rollerden hiçbirine sahip olmaması durumunda istek yasaklanır

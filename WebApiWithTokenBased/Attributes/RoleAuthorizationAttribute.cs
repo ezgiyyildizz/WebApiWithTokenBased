@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-// Rol tabanlı yetkilendirme için özel bir öznitelik oluşturuldu
+// Rol tabanlı yetkilendirme için özel bir öznitelik 
 public class RoleAuthorizationAttribute : AuthorizeAttribute
 {
     public RoleAuthorizationAttribute(params string[] roles)

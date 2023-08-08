@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WebApiWithTokenBased.Models;
 
 namespace WebApiWithTokenBased.EFCore.Config
 {
+    // Kullanıcı rolleri için örnek veri yapılandırması
     public class RoleConfiguration : IEntityTypeConfiguration<UserRole>
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
+            // Kullanıcı rolleri için örnek veri ekleme işlemi
             builder.HasData(
                 new UserRole
                 {

@@ -1,22 +1,25 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using WebApiWithTokenBased.Dto;
 using WebApiWithTokenBased.EFCore;
 using WebApiWithTokenBased.Helpers;
 using WebApiWithTokenBased.Models;
 
+
+//Kimlik doğrulama ve yetkilendirme işlemleri
 public class AuthRepository : IAuthRepository
 {
+    private readonly ILoggerService _logger;
     private readonly UserManager<UserCredentials> _manager;
     private readonly TokenManager _tokenManager;
     private readonly RepositoryContext _dbContext;
 
-    public AuthRepository(UserManager<UserCredentials> manager, TokenManager tokenManager, RepositoryContext dbContext)
+    public AuthRepository(UserManager<UserCredentials> manager, TokenManager tokenManager, RepositoryContext dbContext, ILoggerService logger)
     {
         _manager = manager;
         _tokenManager = tokenManager;
         _dbContext = dbContext;
+        _logger = logger;
     }
 
     // Kullanıcı kaydı metodu
@@ -71,8 +74,6 @@ public class AuthRepository : IAuthRepository
     {
         if (string.IsNullOrEmpty(username))
         {
-            // Handle null or empty username case here, maybe throw an exception or return null
-            // For now, let's just return null
             return null;
         }
 
@@ -147,6 +148,7 @@ public class AuthRepository : IAuthRepository
 
         if (existingUser == null)
         {
+            _logger.LogWarning($"User not found. : {user}");
             throw new Exception("User not found.");
         }
 
@@ -159,6 +161,7 @@ public class AuthRepository : IAuthRepository
 
         if (!updateResult.Succeeded)
         {
+            _logger.LogWarning($"Role could not be updated. : {existingUser}");
             throw new Exception("Failed to update user.");
         }
 
@@ -170,12 +173,14 @@ public class AuthRepository : IAuthRepository
     {
         if (string.IsNullOrEmpty(username))
         {
+            _logger.LogWarning($"User not found. : {username}");
             throw new ArgumentNullException(nameof(username));
         }
 
         var user = await _manager.FindByNameAsync(username);
         if (user == null)
         {
+            _logger.LogWarning($"User not found. : {username}");
             throw new ArgumentException("User not found.", nameof(username));
         }
 
@@ -187,12 +192,14 @@ public class AuthRepository : IAuthRepository
     {
         if (string.IsNullOrEmpty(roleName))
         {
+            _logger.LogWarning($"Role name is empty : {roleName}");
             throw new ArgumentNullException(nameof(roleName));
         }
 
         var role = await _dbContext.Roles.SingleOrDefaultAsync(r => r.Name == roleName);
         if (role == null)
         {
+            _logger.LogWarning($"Role not found.");
             throw new ArgumentException("Role not found.", nameof(roleName));
         }
 

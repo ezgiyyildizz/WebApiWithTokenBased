@@ -14,6 +14,7 @@ namespace WebApiWithTokenBased.Helpers
             _jwtSecretKey = jwtSecretKey;
         }
 
+        // Access token oluşturma
         public string GenerateAccessToken(string username)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -31,14 +32,10 @@ namespace WebApiWithTokenBased.Helpers
             return tokenHandler.WriteToken(token);
         }
 
+        // Refresh token oluşturma
         public string GenerateRefreshToken(string username)
         {
-            // Burada refresh token'ları şifrelemek için gerekli işlemleri gerçekleştirin
-            // Örnek olarak, RNGCryptoServiceProvider ve Convert.ToBase64String gibi yöntemler kullanılabilir
-            // Şifreleme işlemi tamamlandıktan sonra şifrelenmiş refresh token'ı döndürün
-            // Örnek olarak return Convert.ToBase64String(encryptedRefreshToken);
-            // Şu anlık basitlik için şifreleme adımlarını atlayarak random bir değer döndürüyoruz.
-
+            // Şifreleme işlemleri 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSecretKey);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -54,6 +51,7 @@ namespace WebApiWithTokenBased.Helpers
             return tokenHandler.WriteToken(token);
         }
 
+        // Token'ın geçerliliğini doğrulama
         public bool ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -70,7 +68,7 @@ namespace WebApiWithTokenBased.Helpers
             return DateTime.Now < expTime.ToLocalTime();
         }
 
-
+        // Token'dan ClaimsPrincipal alma işlemi
         public ClaimsPrincipal GetPrincipalFromToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -82,22 +80,22 @@ namespace WebApiWithTokenBased.Helpers
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false, // You might want to change these to match your requirements
-                    ValidateAudience = false // You might want to change these to match your requirements
+                    ValidateIssuer = false,
+                    ValidateAudience = false 
                 };
 
-                // Validate the token and extract the claims from it
+                // Token'ı doğrulama ve içindeki verileri alma
                 var principal = tokenHandler.ValidateToken(token, validationParameters, out _);
                 return principal;
             }
             catch (SecurityTokenException)
             {
-                // Token validation failed
+                // Token doğrulaması başarısız 
                 return null;
             }
             catch (Exception)
             {
-                // Some other error occurred
+                // Diğer hatalar 
                 return null;
             }
         }
