@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using WebApiWithTokenBased.Dto;
 using WebApiWithTokenBased.EFCore;
 using WebApiWithTokenBased.Helpers;
@@ -32,7 +33,7 @@ public class AuthRepository : IAuthRepository
             FirstName = registrationDto.FirstName,
             LastName = registrationDto.LastName,
             PhoneNumber = registrationDto.PhoneNumber,
-            // Set other properties here if needed
+            
         };
 
         var result = await _manager.CreateAsync(user, registrationDto.Password);
@@ -43,7 +44,7 @@ public class AuthRepository : IAuthRepository
 
             await _dbContext.SaveChangesAsync();
 
-            string accessToken = _tokenManager.GenerateAccessToken(user.UserName);
+            string accessToken = await GenerateAccessToken(user.UserName);
             string refreshToken = await GenerateRefreshToken(user.UserName);
 
             var tokenDictionary = new Dictionary<string, string>
@@ -70,14 +71,14 @@ public class AuthRepository : IAuthRepository
     }
 
     // Access token oluşturma metodu
-    public string GenerateAccessToken(string username)
+    public async Task<string> GenerateAccessToken(string username)
     {
         if (string.IsNullOrEmpty(username))
         {
             return null;
         }
-
-        return _tokenManager.GenerateAccessToken(username);
+        var user = await _manager.FindByNameAsync(username);
+        return _tokenManager.GenerateAccessToken(username, user.Email, user.PhoneNumber);
     }
 
     // Refresh token oluşturma metodu
@@ -88,7 +89,9 @@ public class AuthRepository : IAuthRepository
             return null;
         }
 
-        return _tokenManager.GenerateRefreshToken(username);
+        var user = await _manager.FindByNameAsync(username);
+
+        return _tokenManager.GenerateRefreshToken(username, user.Email, user.PhoneNumber);
     }
 
     // Token yenileme metodu
@@ -118,7 +121,7 @@ public class AuthRepository : IAuthRepository
             return null;
         }
 
-        var newAccessToken = _tokenManager.GenerateAccessToken(principal.Identity.Name);
+        var newAccessToken = await GenerateAccessToken(principal.Identity.Name);
         var newRefreshToken = await GenerateRefreshToken(principal.Identity.Name);
 
         var newTokenSet = new AccessTokenDto
@@ -206,7 +209,26 @@ public class AuthRepository : IAuthRepository
         return await _manager.GetUsersInRoleAsync(roleName);
     }
 
+    public async Task<List<string>> GetClaimsValue(string token)
+    {
+        // İlgili token ile ilgili claims bilgilerini elde etmek için token yöneticisi
+        var principal = _tokenManager.GetPrincipalFromToken(token);
 
+        // Claims değerlerini saklamak için yeni bir liste 
+        var listClaim = new List<string>();
 
+        // Her bir claim için döngüye giriliyor
+        foreach (var claim in principal.Claims)
+        {
+            // Eğer claim tipi e-posta veya mobil telefon numarası ise
+            if (claim.Type == ClaimTypes.Email || claim.Type == ClaimTypes.MobilePhone)
+            {
+                // Bu claim'in değeri listeye eklenir
+                listClaim.Add(claim.Value);
+            }
+        }
 
+        // İlgili kullanıcının e-posta veya telefon numarası claim değerlerini içeren liste döndürme
+        return listClaim;
+    }
 }

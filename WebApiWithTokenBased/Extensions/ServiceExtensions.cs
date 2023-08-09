@@ -35,7 +35,7 @@ namespace WebApiWithTokenBased.Extensions
             string jwtSecretKey = configuration["Jwt:Key"];
 
             // TokenManager'ı hizmetlere ekleme ve gizli anahtarı ekstra olarak sağlama
-            services.AddScoped(provider => new TokenManager(jwtSecretKey));
+            services.AddScoped(provider => new TokenManager(jwtSecretKey, configuration));
 
             // JWT kimlik doğrulama işlemi
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

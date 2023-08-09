@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using WebApiWithTokenBased.ActionFilters;
 using WebApiWithTokenBased.Dto;
+using WebApiWithTokenBased.Helpers;
 
 namespace WebApiWithTokenBased.Controllers
 {
@@ -28,12 +30,9 @@ namespace WebApiWithTokenBased.Controllers
             var roles = _roleRepository.GetAllRoles();
             return Ok(roles);
         }
-    
 
-
-
-// Bir rolü ID'ye göre getirme metodu
-[TypeFilter(typeof(TokenAuthenticationFilter), Arguments = new object[] { "CanGetRoleById" })]
+        // Bir rolü ID'ye göre getirme metodu
+        [TypeFilter(typeof(TokenAuthenticationFilter), Arguments = new object[] { "CanGetRoleById" })]
         [HttpGet("GetRoleById/{name}")]
         public IActionResult GetRoleById(string name)
         {
@@ -221,6 +220,18 @@ namespace WebApiWithTokenBased.Controllers
                 return StatusCode(500, "Bir hata oluştu. İzin kaldırılamadı.");
             }
         }
+
+
+
+        [HttpGet("GetPrincipalFromToken")]
+        public async Task<IActionResult> GetCalims()
+        {
+            // Token çözümlemesi
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var claimList = await _authRepository.GetClaimsValue(token);
+            return Ok(claimList);
+        }
+       
 
     }
 }

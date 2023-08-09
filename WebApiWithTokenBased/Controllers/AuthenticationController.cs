@@ -50,7 +50,7 @@ namespace WebApiWithTokenBased.Controllers
                 // Giriş başarılıysa access token ve refresh token'ları döndür
                 var accessTokenDto = new AccessTokenDto
                 {
-                    AccessToken = _authRepository.GenerateAccessToken(loginDto.UserName),
+                    AccessToken = await _authRepository.GenerateAccessToken(loginDto.UserName),
                     RefreshToken = await _authRepository.GenerateRefreshToken(loginDto.UserName)
                 };
 

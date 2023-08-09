@@ -2,3 +2,31 @@
 2023-08-08 14:27:29.1959 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.3.1999. Product version: 5.2.3+a5ddef92a8afb22508450803e37c001f4a3ba52a. GlobalAssemblyCache: False
 2023-08-08 14:27:29.2684 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\PC\OneDrive\Masaüstü\WebApiByEjgiYildiz\WebApiWithTokenBased\nlog.config
 2023-08-08 14:27:29.5566 Info Configuration initialized.
+2023-08-09 09:37:55.8046 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-08-09 09:37:55.8457 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.3.1999. Product version: 5.2.3+a5ddef92a8afb22508450803e37c001f4a3ba52a. GlobalAssemblyCache: False
+2023-08-09 09:37:55.8847 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\PC\OneDrive\Masaüstü\WebApiByEjgiYildiz\WebApiWithTokenBased\nlog.config
+2023-08-09 09:37:55.9125 Info Configuration initialized.
+2023-08-09 10:19:52.1688 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-08-09 10:19:52.2474 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.3.1999. Product version: 5.2.3+a5ddef92a8afb22508450803e37c001f4a3ba52a. GlobalAssemblyCache: False
+2023-08-09 10:19:52.2907 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\PC\OneDrive\Masaüstü\WebApiByEjgiYildiz\WebApiWithTokenBased\nlog.config
+2023-08-09 10:19:52.3291 Info Configuration initialized.
+2023-08-09 10:50:34.4108 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-08-09 10:50:34.4500 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.3.1999. Product version: 5.2.3+a5ddef92a8afb22508450803e37c001f4a3ba52a. GlobalAssemblyCache: False
+2023-08-09 10:50:34.4714 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\PC\OneDrive\Masaüstü\WebApiByEjgiYildiz\WebApiWithTokenBased\nlog.config
+2023-08-09 10:50:34.4904 Info Configuration initialized.
+2023-08-09 10:52:28.0564 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-08-09 10:52:28.1292 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.3.1999. Product version: 5.2.3+a5ddef92a8afb22508450803e37c001f4a3ba52a. GlobalAssemblyCache: False
+2023-08-09 10:52:28.1715 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\PC\OneDrive\Masaüstü\WebApiByEjgiYildiz\WebApiWithTokenBased\nlog.config
+2023-08-09 10:52:28.2004 Info Configuration initialized.
+2023-08-09 11:10:47.7491 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-08-09 11:10:47.7831 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.3.1999. Product version: 5.2.3+a5ddef92a8afb22508450803e37c001f4a3ba52a. GlobalAssemblyCache: False
+2023-08-09 11:10:47.8001 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\PC\OneDrive\Masaüstü\WebApiByEjgiYildiz\WebApiWithTokenBased\nlog.config
+2023-08-09 11:10:47.8148 Info Configuration initialized.
+2023-08-09 11:15:33.7377 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-08-09 11:15:33.7880 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.3.1999. Product version: 5.2.3+a5ddef92a8afb22508450803e37c001f4a3ba52a. GlobalAssemblyCache: False
+2023-08-09 11:15:33.8118 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\PC\OneDrive\Masaüstü\WebApiByEjgiYildiz\WebApiWithTokenBased\nlog.config
+2023-08-09 11:15:33.8369 Info Configuration initialized.
+2023-08-09 12:57:16.7203 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-08-09 12:57:16.7837 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.3.1999. Product version: 5.2.3+a5ddef92a8afb22508450803e37c001f4a3ba52a. GlobalAssemblyCache: False
+2023-08-09 12:57:16.8206 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\PC\OneDrive\Masaüstü\WebApiByEjgiYildiz\WebApiWithTokenBased\nlog.config
+2023-08-09 12:57:16.8602 Info Configuration initialized.

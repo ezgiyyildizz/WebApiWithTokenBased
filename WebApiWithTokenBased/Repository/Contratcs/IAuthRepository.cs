@@ -10,7 +10,7 @@ public interface IAuthRepository
     Task<bool> Login(LoginDto userForLogin);
 
     // Belirtilen kullanıcı adı için bir erişim tokenı 
-    string GenerateAccessToken(string username);
+    Task <string> GenerateAccessToken(string username);
 
     // Belirtilen kullanıcı adı için bir yenileme tokenı
     Task<string> GenerateRefreshToken(string username);
@@ -29,4 +29,6 @@ public interface IAuthRepository
 
     // Belirtilen rol adına sahip tüm kullanıcıları getirme
     Task<IList<UserCredentials>> GetUsersInRole(string roleName);
+
+    Task<List<string>> GetClaimsValue(string token);
 }
